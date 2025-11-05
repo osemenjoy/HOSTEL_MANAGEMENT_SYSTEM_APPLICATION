@@ -1,0 +1,60 @@
+{% extends 'hostel_app/base.html' %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center">
+  <div class="rounded-lg shadow-md overflow-hidden w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 bg-slate-800">
+    <!-- Image panel (hidden on small screens) -->
+    <div class="hidden md:block bg-cover bg-center" style="background-image: url('https://source.unsplash.com/collection/895539/800x800');">
+      <div class="h-full w-full bg-gradient-to-tr from-amber-700/40 to-transparent flex items-end">
+        <div class="p-8 text-amber-50">
+          <h2 class="text-2xl font-semibold">Welcome back</h2>
+          <p class="mt-2 text-sm">Sign in to manage your hostel profile, room allocations, and more.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form panel -->
+    <div class="p-8">
+      <h1 class="text-2xl font-semibold mb-6 text-center text-amber-300">Sign in to your account</h1>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="mb-4 text-sm text-red-300 bg-red-900/40 p-2 rounded">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        <div class="mb-4">
+          <label for="id_username" class="block text-sm font-medium text-gray-700">Matric number</label>
+          <input id="id_username" name="username" type="text" required placeholder="e.g. A12345" value="{{ request.POST.username|default_if_none:'' }}" class="mt-1 block w-full px-3 py-2 border rounded-md bg-slate-900 text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-400" />
+          {% if form.errors.username %}
+            {% for err in form.errors.username %}
+              <p class="mt-1 text-sm text-red-600">{{ err }}</p>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="mb-4">
+          <label for="id_password" class="block text-sm font-medium text-gray-700">Password</label>
+          <input id="id_password" name="password" type="password" required placeholder="Enter your password" class="mt-1 block w-full px-3 py-2 border rounded-md bg-slate-900 text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-400" />
+          {% if form.errors.password %}
+            {% for err in form.errors.password %}
+              <p class="mt-1 text-sm text-red-400">{{ err }}</p>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center">
+            <input id="id_remember" name="remember" type="checkbox" class="h-4 w-4 text-amber-400 border-gray-600 rounded" />
+            <label for="id_remember" class="ml-2 block text-sm text-amber-200">Remember me</label>
+          </div>
+          <a href="#" class="text-sm text-amber-300 hover:underline">Forgot password?</a>
+        </div>
+
+  <button type="submit" class="w-full bg-amber-500 text-slate-900 py-2 rounded-md hover:bg-amber-400">Sign in</button>
+
+        <p class="mt-4 text-center text-sm text-amber-200">Don't have an account? <a href="{% url 'register' %}" class="text-amber-300 hover:underline">Create one</a></p>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

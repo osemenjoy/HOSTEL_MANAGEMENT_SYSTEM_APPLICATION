@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hostel Management</title>
+    <!-- Tailwind CDN for quick setup -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-slate-900 text-slate-100 min-h-screen">
+    <nav class="bg-slate-800 shadow sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+          <!-- Sidebar toggle -->
+          <button id="sidebarToggle" aria-label="Toggle sidebar" class="p-2 rounded-md bg-slate-700/20 hover:bg-slate-700/30 text-amber-300 focus:outline-none" title="Toggle sidebar">
+            <svg id="sidebarToggleIcon" class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          </button>
+          <div class="font-bold text-amber-400 text-lg">Hostel Management</div>
+        </div>
+        <div class="text-sm">
+          {% if user.is_authenticated %}
+            <span class="mr-4 text-amber-200">{{ user.matric_number }}</span>
+            <form method="post" action="{% url 'logout' %}" class="inline">
+              {% csrf_token %}
+              <button type="submit" class="text-amber-400 hover:text-amber-300">Logout</button>
+            </form>
+          {% else %}
+            <a href="{% url 'login' %}" class="mr-4 text-amber-300 hover:text-amber-200">Login</a>
+            <a href="{% url 'register' %}" class="text-amber-300 hover:text-amber-200">Register</a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto p-6">
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+  <script>
+    (function(){
+      const btn = document.getElementById('sidebarToggle');
+      const icon = document.getElementById('sidebarToggleIcon');
+      const sidebar = document.getElementById('appSidebar');
+      const main = document.querySelector('main');
+      let open = true;
+      // read saved state
+      try{ open = localStorage.getItem('sidebarOpen') !== 'false'; }catch(e){}
+      function apply(){
+        if(!sidebar) return;
+        if(open){
+          sidebar.classList.remove('-translate-x-full');
+          main.classList.remove('md:ml-0');
+          main.classList.add('md:ml-72');
+          icon.style.transform = 'rotate(0deg)';
+        } else {
+          sidebar.classList.add('-translate-x-full');
+          main.classList.remove('md:ml-72');
+          main.classList.add('md:ml-0');
+          icon.style.transform = 'rotate(180deg)';
+        }
+      }
+      if(btn){
+        btn.addEventListener('click', function(){
+          open = !open;
+          try{ localStorage.setItem('sidebarOpen', open); }catch(e){}
+          apply();
+        });
+      }
+      // initial
+      apply();
+    })();
+  </script>
+</html>

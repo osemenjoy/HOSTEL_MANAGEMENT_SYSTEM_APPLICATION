@@ -1,0 +1,81 @@
+{% extends 'hostel_app/base.html' %}
+
+{% block content %}
+<div class="min-h-[70vh] bg-transparent relative">
+  <!-- Fixed left sidebar for md+ screens -->
+  <aside id="appSidebar" class="hidden md:flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] w-72 bg-slate-800/90 p-6 shadow-inner z-40 transform transition-transform duration-200">
+    <div class="mb-6">
+      <div class="text-amber-300 font-semibold text-lg">Hello, {{ user.first_name|default:user.matric_number }}</div>
+      <div class="text-amber-100 text-sm">Member since: {{ user.date_joined|date:"M Y" }}</div>
+    </div>
+
+    <nav class="mt-4 space-y-2">
+      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded bg-slate-700/20 text-amber-200">
+        <svg class="w-5 h-5 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/></svg>
+        <span class="font-medium">Overview</span>
+      </a>
+
+      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded hover:bg-slate-700/10 text-slate-200">
+        <svg class="w-5 h-5 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M3 11h18M5 21h14a2 2 0 002-2v-7H3v7a2 2 0 002 2z"/></svg>
+        <span>My Room</span>
+      </a>
+
+      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded hover:bg-slate-700/10 text-slate-200">
+        <svg class="w-5 h-5 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3v4h6v-4c0-1.657-1.343-3-3-3z"/></svg>
+        <span>Request Room</span>
+      </a>
+
+      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded hover:bg-slate-700/10 text-slate-200">
+        <svg class="w-5 h-5 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+        <span>Maintenance</span>
+      </a>
+
+      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded hover:bg-slate-700/10 text-slate-200">
+        <svg class="w-5 h-5 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"/></svg>
+        <span>Payments</span>
+      </a>
+
+      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded hover:bg-slate-700/10 text-slate-200">
+        <svg class="w-5 h-5 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11l-6 6-6-6"/></svg>
+        <span>Notices</span>
+      </a>
+
+      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded hover:bg-slate-700/10 text-slate-200">
+        <svg class="w-5 h-5 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.966 13.966 0 0112 15c2.21 0 4.28.447 6.121 1.24M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        <span>Profile</span>
+      </a>
+
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded text-amber-300 hover:bg-slate-700/10">
+          <svg class="w-5 h-5 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7"/></svg>
+          <span>Logout</span>
+        </button>
+      </form>
+    </nav>
+  </aside>
+
+  <!-- Main content (offset on md+) -->
+  <main class="p-6 md:ml-0">
+    <div class="bg-slate-800 p-6 rounded">
+      <h1 class="text-2xl font-bold text-amber-300">Dashboard</h1>
+      <p class="mt-4 text-amber-100">This is your hostel dashboard. Build features like room allocation, complaints, and payments here.</p>
+
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-slate-700/40 p-4 rounded">
+          <div class="text-sm text-amber-200">Rooms available</div>
+          <div class="text-2xl font-semibold text-white mt-2">12</div>
+        </div>
+        <div class="bg-slate-700/40 p-4 rounded">
+          <div class="text-sm text-amber-200">Your allocation</div>
+          <div class="text-2xl font-semibold text-white mt-2">B12 - Block A</div>
+        </div>
+        <div class="bg-slate-700/40 p-4 rounded">
+          <div class="text-sm text-amber-200">Open complaints</div>
+          <div class="text-2xl font-semibold text-white mt-2">1</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}
