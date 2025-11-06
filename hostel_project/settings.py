@@ -13,7 +13,10 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 # Hosts and CSRF trusted origins can be provided as comma-separated env vars
 ALLOWED_HOSTS = ['.railway.app', 'hostel-management.up.railway.app', 'localhost', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://hostel-management.up.railway.app']
+CSRF_TRUSTED_ORIGINS = [
+    'https://hostel-management.up.railway.app',
+    'https://*.railway.app',
+]
 
 
 if not ALLOWED_HOSTS:
