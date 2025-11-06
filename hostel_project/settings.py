@@ -11,8 +11,10 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Hosts and CSRF trusted origins can be provided as comma-separated env vars
-ALLOWED_HOSTS = [h.strip() for h in config('ALLOWED_HOSTS', default='').split(',') if h.strip()]
-CSRF_TRUSTED_ORIGINS = [o.strip() for o in config('CSRF_TRUSTED_ORIGINS', default='').split(',') if o.strip()]
+ALLOWED_HOSTS = ['.railway.app', 'hostel-management.up.railway.app', 'localhost', '127.0.0.1']
+
+CSRF_TRUSTED_ORIGINS = ['https://hostel-management.up.railway.app']
+
 
 if not ALLOWED_HOSTS:
     # Default to localhost during development if nothing provided
