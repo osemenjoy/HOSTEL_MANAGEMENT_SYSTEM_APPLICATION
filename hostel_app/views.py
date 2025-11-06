@@ -4,6 +4,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from .models import User
 from django import forms
+from django.shortcuts import render
 
 
 class SimpleRegisterForm(forms.ModelForm):
@@ -69,6 +70,42 @@ def home(request):
 @login_required
 def dashboard(request):
     return render(request, 'hostel_app/dashboard.html')
+
+
+# Student pages from sidebar
+@login_required
+def overview(request):
+    return render(request, 'hostel_app/overview.html')
+
+
+@login_required
+def my_room(request):
+    return render(request, 'hostel_app/my_room.html')
+
+
+@login_required
+def request_room(request):
+    return render(request, 'hostel_app/request_room.html')
+
+
+@login_required
+def maintenance(request):
+    return render(request, 'hostel_app/maintenance.html')
+
+
+@login_required
+def payments(request):
+    return render(request, 'hostel_app/payments.html')
+
+
+@login_required
+def notices(request):
+    return render(request, 'hostel_app/notices.html')
+
+
+@login_required
+def profile(request):
+    return render(request, 'hostel_app/profile.html')
 
 
 def register(request):
