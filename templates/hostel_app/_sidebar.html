@@ -1,3 +1,4 @@
+{% if user.is_authenticated %}
 <aside id="appSidebar" class="hidden md:flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] w-72 bg-slate-800/90 p-6 shadow-inner z-40 transform transition-transform duration-200">
   <div class="mb-6">
     <div class="text-amber-300 font-semibold text-lg">Hello, {{ user.first_name|default:user.matric_number }}</div>
@@ -49,3 +50,4 @@
     </form>
   </nav>
 </aside>
+{% endif %}
